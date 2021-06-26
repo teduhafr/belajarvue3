@@ -1,38 +1,41 @@
 <template>
   <div id="app">
-    <div class="UserProfile">
-      <div class="UserName">
-        @{{ user.userName }}
+    <div class="row">
+      <div class="card card-header UserProfile col-3">
+        <div class="h1">
+          @{{ user.userName }}
+          </div>
+
+          <!-- contoh penggunaan v-if -->
+          <div class="AsAdmin" v-if="user.isAdmin">
+            Admin
+          </div>
+          <div class="AsAdmin" v-else>
+            Bukan Admin
+          </div>
+          <!-- -->
+
+          <div class="FullName"> {{ fullName }}
+          </div>
+          <div class="Followers">
+            <strong>Folowers:  </strong> {{ followers }}
+          </div>
+          <div class="btn">
+            <button @click="followUser">
+              Follow
+            </button>
+          </div>
         </div>
 
-        <!-- contoh penggunaan v-if -->
-        <div class="AsAdmin" v-if="!user.isAdmin">
-          Admin
+        <!-- loop, kalau ga ada id :key= bisa dihapus dan diganti (tweet, index) -->
+        <div class="UserProfile col-6 card card-body">
+          <div class="FullName" v-for="tweet in user.tweets" :key="tweet.id">
+            {{ tweet.content }}
+          </div>
         </div>
-        <div class="AsAdmin" v-else>
-          Bukan Admin
-        </div>
-        <!-- -->
-
-        <div class="FullName"> {{ fullName }}
-        </div>
-        <div class="Followers">
-          <strong>Folowers:  </strong> {{ followers }}
-        </div>
-        <div class="Tombol">
-          <button @click="followUser">
-            Follow
-          </button>
-        </div>
-      </div>
-
-      <!-- loop, kalau ga ada id :key= bisa dihapus dan diganti (tweet, index) -->
-      <div class="UserProfile">
-        <div class="FullName" v-for="tweet in user.tweets" :key="tweet.id">
-          {{ tweet.content }}
-        </div>
-      </div>
-      <!-- end loop -->
+        <div class="col-3"></div>
+        <!-- end loop -->
+    </div>  
   </div>
 </template>
 
@@ -101,11 +104,12 @@ computed: {
   flex-direction: column;
 }
 .UserProfile{
-  background: whitesmoke;
   margin-top: 1%;
   margin-left: 1%;
   width: 20%;
-  border-radius: 5px;
+}
+.row{
+  margin-left: 2%;
 }
 .UserName {
   text-align: left;
