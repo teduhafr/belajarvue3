@@ -24,9 +24,9 @@ export default {
     },
   },
   //props, berarti mengambil data dari props diatas seteah props,, bisa ditambah conteent, dll
-  setup(props) {
+  setup(props, ctx) { //props adalah data dari parent, ctx ngirimke parent.. ini memang urutannya kaya gitu, nama bebas
     function favouriteTweet(id) {
-      props.emit("favourite", id); //emit untuk mengirim item ke atas, favourite nanti  untuk kode diatas, id ya id yang dikirimkan
+      ctx.emit("favourite", id); //emit untuk mengirim item ke atas, favourite nanti  untuk kode diatas, id ya id yang dikirimkan
     }
     return {
       favouriteTweet,

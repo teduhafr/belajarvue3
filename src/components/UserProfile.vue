@@ -1,72 +1,73 @@
 <template>
   <div id="app">
-    <div class="row mt-3 ms-2 me-5">
-      <div class="card card-header col-3 UserProfile">
-        <div class="h1">@{{ state.user.userName }}</div>
+    <div class="container overflow-auto">
+      <div class="row mt-3 ms-2 me-5">
+        <div class="col col-md-3">
+          <div class="h1">@{{ state.user.userName }}</div>
 
-        <!-- contoh penggunaan v-if -->
-        <div class="AsAdmin" v-if="state.user.isAdmin">Admin</div>
-        <div class="AsAdmin" v-else>Bukan Admin</div>
-        <!-- -->
+          <!-- contoh penggunaan v-if -->
+          <div class="AsAdmin" v-if="state.user.isAdmin">Admin</div>
+          <div class="AsAdmin" v-else>Bukan Admin</div>
+          <!-- -->
 
-        <div class="FullName">{{ fullName }}</div>
-        <div class="Followers">
-          <strong>Folowers: </strong> {{ state.followers }}
-        </div>
-        <div class="btn">
-          <button @click="followUser">Follow</button>
-        </div>
-        <!-- belajar form -->
-        <form class="form" @submit.prevent="createNewTweet">
-          <label for="newTweet" class="form-label"
-            ><strong>Tweet({{ newTweetCharacterCount }} /180) </strong></label
-          >
-          <!-- <element (v-bind bisa dihilangkan) v-bind:class = "(condition)?'class_if_is_true':'else_class'"> -->
-          <textarea
-            id="newTweet"
-            rows="4"
-            class="form-control"
-            v-model="state.newTweetContent"
-            :class="newTweetCharacterCount > 180 ? 'btn btn-danger' : ''"
-          />
-          <label for="newTweetType" class="form-label"
-            ><strong>Type: </strong></label
-          >
-          <select
-            name="ChooseId"
-            id="newTweetType"
-            v-model="state.selectedTweetType"
-            class="form-label"
-          >
-            <!-- :value adalah akan mengisi value dari option (option yang dipilih, 
-            kebetulan namanya jadi value) (v-for) dan valuenya dari nilai optionnya-->
-            <option
-              :value="option.value"
-              v-for="(option, index) in state.tweetTypes"
-              :key="index"
+          <div class="FullName">{{ fullName }}</div>
+          <div class="Followers">
+            <strong>Folowers: </strong> {{ state.followers }}
+          </div>
+          <div class="btn">
+            <button @click="followUser">Follow</button>
+          </div>
+          <!-- belajar form -->
+          <form class="form" @submit.prevent="createNewTweet">
+            <label for="newTweet" class="form-label"
+              ><strong>Tweet({{ newTweetCharacterCount }} /180) </strong></label
             >
-              {{ option.name }}
-            </option>
-          </select>
-          <br />
-          <button class="btn btn-info">Tweet</button>
-        </form>
-      </div>
+            <!-- <element (v-bind bisa dihilangkan) v-bind:class = "(condition)?'class_if_is_true':'else_class'"> -->
+            <textarea
+              id="newTweet"
+              rows="4"
+              class="form-control"
+              v-model="state.newTweetContent"
+              :class="newTweetCharacterCount > 180 ? 'btn btn-danger' : ''"
+            />
+            <label for="newTweetType" class="form-label"
+              ><strong>Type: </strong></label
+            >
+            <select
+              name="ChooseId"
+              id="newTweetType"
+              v-model="state.selectedTweetType"
+              class="form-label"
+            >
+              <!-- :value adalah akan mengisi value dari option (option yang dipilih, 
+            kebetulan namanya jadi value) (v-for) dan valuenya dari nilai optionnya-->
+              <option
+                :value="option.value"
+                v-for="(option, index) in state.tweetTypes"
+                :key="index"
+              >
+                {{ option.name }}
+              </option>
+            </select>
+            <br />
+            <button class="btn btn-info">Tweet</button>
+          </form>
+        </div>
 
-      <!-- loop, kalau ga ada id :key= bisa dihapus dan diganti (tweet, index)
+        <!-- loop, kalau ga ada id :key= bisa dihapus dan diganti (tweet, index)
       favourite ini mengambild dari anaknya yang dikirim dari emit -->
-      <div class="UserProfile col-6">
-        <TweetItem
-          class="row card card-body m-1"
-          v-for="tweet in state.user.tweets"
-          :key="tweet.id"
-          :username="state.user.userName"
-          :tweet="tweet"
-          @favourite="toggleFavourite"
-        />
+        <div class="col col-md-9">
+          <TweetItem
+            class="row card card-body m-1"
+            v-for="tweet in state.user.tweets"
+            :key="tweet.id"
+            :username="state.user.userName"
+            :tweet="tweet"
+            @favourite="toggleFavourite"
+          />
+        </div>
+        <!-- end loop -->
       </div>
-      <div class="col-3"></div>
-      <!-- end loop -->
     </div>
   </div>
 </template>
@@ -211,5 +212,9 @@ export default {
 
 .row-header {
   margin-top: 100;
+}
+
+.container{
+  max-height: 90vh;
 }
 </style>

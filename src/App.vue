@@ -1,16 +1,19 @@
 <template>
-  <div id="app">
-   <UserProfile />
-  </div>
+  <Header />
+  <router-view /> <!-- router view adalah tempat halaman yang dituju, router -->
+<Sidebar />
+
 </template>
 
 <script>
-import UserProfile from "./components/UserProfile.vue"
+
+import Header from "./components/Header.vue";
+import Sidebar from "./components/Sidebar.vue"
 
 export default {
-  name: 'App',
-  components: { UserProfile}
-}
+  name: "App",
+  components: {  Header, Sidebar },
+};
 </script>
 
 <style>
